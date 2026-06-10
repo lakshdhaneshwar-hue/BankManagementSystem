@@ -104,13 +104,13 @@ No server required. The frontend uses LocalStorage for demo data.
 Enter choice: 1
 
 ----- REGISTER NEW CUSTOMER -----
-First Name    : Alisha
-Last Name     : Kumari
-Email         : alisha@bank.com
+First Name    : Lakshya
+Last Name     : Dhaneshwar
+Email         : lakshya@bank.com
 Phone Number  : 9876543210
 Address       : New Delhi
 Password      : secure123
-Date of Birth : 2002-05-15
+Date of Birth : 2005-12-12
 
 ✓ Registration successful!
 Your Customer ID: CUST1001
