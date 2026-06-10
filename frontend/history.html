@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAKSHYA National Bank - Transaction History</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="navbar-brand"><span class="logo-icon">🏦</span> LAKSHYA National Bank</div>
+    <ul class="navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="deposit.html">Deposit</a></li>
+        <li><a href="withdraw.html">Withdraw</a></li>
+        <li><a href="history.html" class="active">History</a></li>
+        <li><a href="login.html">Logout</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div style="max-width:900px; margin:3rem auto; padding:0 1rem;">
+
+    <!-- Title -->
+    <div style="text-align:center; margin-bottom:2rem;">
+        <div style="font-size:3rem;">📋</div>
+        <h1 style="color:var(--primary);">Transaction History</h1>
+        <p style="color:var(--text-muted);">View all your past transactions</p>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card fade-in mb-3">
+        <div class="card-header">
+            <h2>🔍 Search Transactions</h2>
+        </div>
+        <form id="historyForm" style="display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap;">
+            <div class="form-group" style="flex:1; min-width:200px; margin-bottom:0;">
+                <label for="historyAccountId">Account ID</label>
+                <input type="text" id="historyAccountId" class="form-control"
+                       placeholder="Enter Account ID (e.g. SAV1001)">
+            </div>
+            <button type="submit" class="btn btn-primary" style="height:48px; padding:0 1.5rem;">
+                🔍 Search
+            </button>
+        </form>
+    </div>
+
+    <!-- Summary Cards (populated by JS) -->
+    <div id="summaryCards" class="stats-grid mb-3 hidden">
+        <div class="stat-card">
+            <div class="stat-icon green">⬆</div>
+            <div class="stat-info">
+                <h3 id="totalDeposits">Rs. 0</h3>
+                <p>Total Deposits</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon red">⬇</div>
+            <div class="stat-info">
+                <h3 id="totalWithdrawals">Rs. 0</h3>
+                <p>Total Withdrawals</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon blue">🔢</div>
+            <div class="stat-info">
+                <h3 id="totalCount">0</h3>
+                <p>Total Transactions</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transactions Table -->
+    <div id="historyTable" class="card hidden">
+        <div class="card-header">
+            <h2>📃 Transaction Records</h2>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Balance After</th>
+                        <th>Date & Time</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Java Connection Note -->
+    <div class="card mt-3" style="border-left:4px solid var(--accent);">
+        <h3 style="color:var(--primary); margin-bottom:0.75rem;">📚 Java Backend Connection</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.8;">
+            In the Java console application (<code>Main.java</code>), transaction history is loaded using
+            <strong>FileManager.loadTransactionsForAccount()</strong> which reads <code>transactions.txt</code>
+            using <strong>BufferedReader</strong>. Transactions are stored as objects using
+            <strong>ArrayList&lt;Transaction&gt;</strong> (Collections Framework) and filtered using
+            <strong>Streams API + Lambda expressions</strong>.
+        </p>
+    </div>
+
+    <div class="text-center mt-2">
+        <a href="dashboard.html" style="color:var(--text-muted); font-size:0.9rem;">← Back to Dashboard</a>
+    </div>
+</div>
+
+<footer style="margin-top:3rem;">
+    <p>&copy; 2024 <span>LAKSHYA National Bank</span></p>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+    // Override form submission to also update summary
+    document.getElementById('historyForm').addEventListener('submit', function (e) {
+        // let script.js handle table rendering, then update summaries
+        setTimeout(() => {
+            const accountId = document.getElementById('historyAccountId').value.trim();
+            const txns = JSON.parse(localStorage.getItem('txns_' + accountId) || '[]');
+
+            if (txns.length > 0) {
+                let deposits = 0, withdrawals = 0;
+                txns.forEach(t => {
+                    if (t.type === 'DEPOSIT')    deposits += parseFloat(t.amount);
+                    else                         withdrawals += parseFloat(t.amount);
+                });
+                document.getElementById('totalDeposits').textContent    = 'Rs. ' + deposits.toFixed(2);
+                document.getElementById('totalWithdrawals').textContent = 'Rs. ' + withdrawals.toFixed(2);
+                document.getElementById('totalCount').textContent       = txns.length;
+                document.getElementById('summaryCards').classList.remove('hidden');
+            }
+        }, 100);
+    });
+</script>
+</body>
+</html>
+

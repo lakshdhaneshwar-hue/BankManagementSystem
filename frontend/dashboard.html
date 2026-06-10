@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAKSHYA National Bank - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="navbar-brand">
+        <span class="logo-icon">🏦</span>
+        LAKSHYA National Bank
+    </div>
+    <ul class="navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="deposit.html">Deposit</a></li>
+        <li><a href="withdraw.html">Withdraw</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="#" id="logoutBtn" style="color:#f8d7da;">Logout</a></li>
+    </ul>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ===== DASHBOARD LAYOUT ===== -->
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-user">
+            <div class="user-avatar">A</div>
+            <h4 class="user-display-name">Welcome</h4>
+            <p>Customer</p>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="dashboard.html" class="active"><span class="nav-icon">📊</span> Dashboard</a></li>
+            <li><a href="deposit.html"><span class="nav-icon">💰</span> Deposit</a></li>
+            <li><a href="withdraw.html"><span class="nav-icon">💸</span> Withdraw</a></li>
+            <li><a href="history.html"><span class="nav-icon">📋</span> Transactions</a></li>
+            <li><a href="#" onclick="alert('Transfer: Use the Java console app for transfers.')"><span class="nav-icon">🔄</span> Transfer</a></li>
+            <li style="margin-top:auto; padding-top:2rem;">
+                <a href="#" id="logoutSidebar"><span class="nav-icon">🚪</span> Logout</a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-main">
+
+        <div class="dashboard-header">
+            <h1>Good day, <span class="user-display-name" style="color:var(--accent);">Customer</span>! 👋</h1>
+            <p>Here's a summary of your banking activity.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">💳</div>
+                <div class="stat-info">
+                    <h3 id="currentBalance">Rs. 0.00</h3>
+                    <p>Account Balance</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon gold">📈</div>
+                <div class="stat-info">
+                    <h3>4.5%</h3>
+                    <p>Interest Rate (Savings)</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <div class="stat-info">
+                    <h3>Active</h3>
+                    <p>Account Status</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon red">🔄</div>
+                <div class="stat-info">
+                    <h3 id="txnCount">0</h3>
+                    <p>Transactions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h2>⚡ Quick Actions</h2>
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap:1rem;">
+                <a href="deposit.html" class="btn btn-success">💰 Deposit</a>
+                <a href="withdraw.html" class="btn btn-danger">💸 Withdraw</a>
+                <a href="history.html" class="btn btn-primary">📋 History</a>
+                <button class="btn btn-outline" style="color:var(--primary); border-color:var(--primary);"
+                        onclick="alert('Transfer feature: Run the Java backend (Main.java) for full transfer functionality.')">
+                    🔄 Transfer
+                </button>
+            </div>
+        </div>
+
+        <!-- Java Concepts Summary -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h2>📚 Java Concepts Used in This Project</h2>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.9rem;">
+                <div>
+                    <strong style="color:var(--primary);">OOP Concepts</strong>
+                    <ul style="margin-top:0.5rem; padding-left:1.2rem; line-height:2; color:var(--text-muted);">
+                        <li>Encapsulation (private fields)</li>
+                        <li>Abstraction (Account abstract class)</li>
+                        <li>Inheritance (Savings/Current extends Account)</li>
+                        <li>Polymorphism (Method overriding)</li>
+                        <li>Interfaces (Serializable)</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong style="color:var(--primary);">Advanced Java</strong>
+                    <ul style="margin-top:0.5rem; padding-left:1.2rem; line-height:2; color:var(--text-muted);">
+                        <li>Custom Exceptions (3 types)</li>
+                        <li>Collections (HashMap, ArrayList, HashSet)</li>
+                        <li>Lambda Expressions & Streams API</li>
+                        <li>File Handling (BufferedReader/Writer)</li>
+                        <li>Multithreading (Interest Thread)</li>
+                        <li>Enum (TransactionType)</li>
+                        <li>Generics & Serialization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions Preview -->
+        <div class="card">
+            <div class="card-header d-flex justify-between align-center">
+                <h2>📋 Recent Transactions</h2>
+                <a href="history.html" class="btn btn-primary" style="padding:0.4rem 1rem; font-size:0.85rem;">View All</a>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TXN ID</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                            <th>Balance After</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTxnBody">
+                        <tr>
+                            <td colspan="5" class="text-center" style="padding:2rem; color:var(--text-muted);">
+                                No recent transactions. Make a deposit to get started!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 <span>LAKSHYA National Bank</span> — Secured Banking System</p>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+    // Load dashboard data
+    window.addEventListener('DOMContentLoaded', () => {
+        const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        // Check for any account balance stored
+        const accountKeys = Object.keys(localStorage).filter(k => k.startsWith('balance_'));
+        let totalBal = 0;
+        accountKeys.forEach(k => { totalBal += parseFloat(localStorage.getItem(k) || 0); });
+        document.getElementById('currentBalance').textContent = 'Rs. ' + totalBal.toFixed(2);
+
+        // Count transactions
+        const txnKeys = Object.keys(localStorage).filter(k => k.startsWith('txns_'));
+        let txnCount = 0;
+        txnKeys.forEach(k => {
+            const txns = JSON.parse(localStorage.getItem(k) || '[]');
+            txnCount += txns.length;
+        });
+        document.getElementById('txnCount').textContent = txnCount;
+
+        // Load recent transactions
+        const tbody = document.getElementById('recentTxnBody');
+        let allTxns = [];
+        txnKeys.forEach(k => {
+            const txns = JSON.parse(localStorage.getItem(k) || '[]');
+            allTxns = allTxns.concat(txns);
+        });
+
+        if (allTxns.length > 0) {
+            allTxns = allTxns.slice(0, 5); // show 5 most recent
+            tbody.innerHTML = '';
+            allTxns.forEach(t => {
+                const badge = t.type === 'DEPOSIT'
+                    ? '<span class="badge badge-success">DEPOSIT</span>'
+                    : '<span class="badge badge-danger">WITHDRAWAL</span>';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${t.id}</td>
+                        <td>${badge}</td>
+                        <td class="${t.type === 'DEPOSIT' ? 'amount-deposit' : 'amount-withdrawal'}">Rs. ${t.amount}</td>
+                        <td>Rs. ${t.balance}</td>
+                        <td>${t.date}</td>
+                    </tr>`;
+            });
+        }
+    });
+
+    document.getElementById('logoutSidebar')?.addEventListener('click', function(e){
+        e.preventDefault();
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    });
+</script>
+</body>
+</html>
+
